@@ -1,6 +1,5 @@
 import pygame
 import numpy as np
-import sys
 
 
 def draw_number(file_path: str):
@@ -23,7 +22,10 @@ def draw_number(file_path: str):
     running = True
     drawing = False
 
+    clock = pygame.time.Clock()
+
     while running:
+        clock.tick(120)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -48,7 +50,7 @@ def draw_number(file_path: str):
                 x, y = event.pos
                 if y < screen_size:  # Only draw in the canvas area
                     # Draw a circle for a smoother (anti-aliased) stroke
-                    brush_radius = 4  # Adjust for desired stroke thickness
+                    brush_radius = 4.57  # Adjust for desired stroke thickness
                     pygame.draw.circle(canvas, (255, 255, 255), (x, y), brush_radius)
 
         # Clear screen and blit the current canvas
@@ -93,7 +95,7 @@ def vectorise_image(image_file: str) -> np.ndarray:
             # For a drawn image with white digit on black background:
             # - White (r=255) becomes 0.0 (digit in MNIST)
             # - Black (r=0) becomes 1.0 (background in MNIST)
-            normalized = (r / 255.0)
+            normalized = (r * (0.99 / 255.0))
             pixels.append(normalized)
     
     # Convert to numpy array and reshape to match MNIST format
