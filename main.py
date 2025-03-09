@@ -11,7 +11,7 @@ training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
 NN: NeuralNetwork = INITIALISING([784, 30,  10])
 print("finished initialising -> beginning training")
 
-NN.SGD(training_data=training_data, testing_data=test_data, learning_rate=3, epochs=3, mini_batch_size=10)
+NN.SGD(training_data=training_data, testing_data=test_data, learning_rate=3, epochs=30, mini_batch_size=10)
 
 print("finished training")
 input("Press Enter to continue...")
