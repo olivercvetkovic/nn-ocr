@@ -1,3 +1,4 @@
+from turtle import forward
 import numpy as np
 from collections.abc import Callable
 import random
@@ -60,12 +61,14 @@ class NeuralNetwork:
         self.depth = len(layers)
 
     def compute(self, input: np.ndarray) -> int:
-        a: np.ndarray = input
-        for l in range(self.depth):
-            current_layer: Layer = self.layers[l]
-            a: np.ndarray = current_layer.activations(a)
-
-        return int(np.argmax(a))
+        pre_activations: list[np.ndarray]
+        activations: list[np.ndarray]
+        
+        pre_activations, activations = self.forward_pass(input=input)
+        print(activations)
+        output = np.argmax(activations[-1])
+    
+        return int(output)
 
     def forward_pass(self, input: np.ndarray) -> tuple[list[np.ndarray], list[np.ndarray]]:
         a: np.ndarray = input
@@ -81,6 +84,7 @@ class NeuralNetwork:
 
             a = layer.activations(pre_activations=z)
             activations.append(a)
+            # print(activations)
 
         return (pre_activations, activations)
 
@@ -166,6 +170,7 @@ class NeuralNetwork:
             training_results.append((np.argmax(activations[-1]), y))
 
         return sum(int(x == y) for (x, y) in training_results)
+    
 
 
 def sigmoid(z):
@@ -182,7 +187,7 @@ def INITIALISING(sizes: list) -> NeuralNetwork:
     for input_size, output_size in zip(sizes[:-1], sizes[1:]):
         neurons: list = []
 
-        for _ in range(output_size):
+        for i in range(output_size):
             neuron = Neuron(activation_function=sigmoid, bias=np.random.randn(), w=np.random.randn(input_size))
             neurons.append(neuron)
 
