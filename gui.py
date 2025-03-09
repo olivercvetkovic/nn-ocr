@@ -71,33 +71,32 @@ def draw_number(file_path: str):
 
 def vectorise_image(image_file: str) -> np.ndarray:
     """Convert a 28x28 PNG image of a drawn digit into an MNIST-compatible vector.
-    
+
     Args:
         image_file: Path to the PNG file created by draw_number()
-    
+
     Returns:
         Numpy array of shape (784, 1) with normalized pixel values (0.0-1.0),
         where the background is white (1.0) and the digit is black (0.0).
     """
     # Load the image using Pygame
     image = pygame.image.load(image_file)
-    
+
     # Store pixel values
     pixels = []
-    
+
     # Extract and normalize pixels with inversion
     for y in range(28):
         for x in range(28):
             # Get RGB values (image is black background with white drawing)
             r, g, b, *_ = image.get_at((x, y))
-            
+
             # Normalize and invert:
             # For a drawn image with white digit on black background:
             # - White (r=255) becomes 0.0 (digit in MNIST)
             # - Black (r=0) becomes 1.0 (background in MNIST)
             normalized = (r * (0.99 / 255.0))
             pixels.append(normalized)
-    
+
     # Convert to numpy array and reshape to match MNIST format
     return np.array(pixels).reshape((-1, 1)).astype(np.float64)
-    
