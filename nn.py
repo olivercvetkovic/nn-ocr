@@ -65,7 +65,6 @@ class NeuralNetwork:
         activations: list[np.ndarray]
         
         pre_activations, activations = self.forward_pass(input=input)
-        print(activations)
         output = np.argmax(activations[-1])
     
         return int(output)
@@ -84,7 +83,6 @@ class NeuralNetwork:
 
             a = layer.activations(pre_activations=z)
             activations.append(a)
-            # print(activations)
 
         return (pre_activations, activations)
 

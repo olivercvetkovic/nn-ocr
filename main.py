@@ -27,8 +27,3 @@ while True:
     # Output of NN
     output: int = NN.compute(input=x)
     print("The number on the image is: ", output)
-
-    user_input: str = input("press ENTER to test a new number or type quit to exit\n")
-
-    if user_input == 'quit':
-        break

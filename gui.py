@@ -48,7 +48,7 @@ def draw_number(file_path: str):
                 x, y = event.pos
                 if y < screen_size:  # Only draw in the canvas area
                     # Draw a circle for a smoother (anti-aliased) stroke
-                    brush_radius = 5  # Adjust for desired stroke thickness
+                    brush_radius = 4  # Adjust for desired stroke thickness
                     pygame.draw.circle(canvas, (255, 255, 255), (x, y), brush_radius)
 
         # Clear screen and blit the current canvas
