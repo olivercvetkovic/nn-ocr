@@ -5,8 +5,7 @@ import numpy as np
 def draw_number(file_path: str):
     pygame.init()
 
-    # High resolution drawing canvas (10x MNIST size)
-    canvas_size = 128  # e.g., 280x280 pixels
+    canvas_size = 128 
     screen_size = canvas_size
     screen = pygame.display.set_mode((screen_size, screen_size + 50))
     pygame.display.set_caption("Draw Number")

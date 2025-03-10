@@ -60,14 +60,18 @@ class NeuralNetwork:
         self.layers = layers
         self.depth = len(layers)
 
-    def compute(self, input: np.ndarray) -> int:
-        pre_activations: list[np.ndarray]
-        activations: list[np.ndarray]
-        
+    def compute(self, input: np.ndarray) -> tuple[int, float]:
         pre_activations, activations = self.forward_pass(input=input)
-        output = np.argmax(activations[-1])
-    
-        return int(output)
+
+        softmax: Callable = np.exp
+        softmax_output: np.ndarray = softmax(activations[-1])
+        probabilities: np.ndarray = softmax_output / np.sum(softmax_output)
+
+        predicted_number = np.argmax(probabilities)
+
+        probability = probabilities[predicted_number]
+
+        return int(predicted_number), float(probability)
 
     def forward_pass(self, input: np.ndarray) -> tuple[list[np.ndarray], list[np.ndarray]]:
         a: np.ndarray = input

@@ -25,5 +25,5 @@ while True:
     x: np.ndarray = vectorise_image(image_file="number.png")
 
     # Output of NN
-    output: int = NN.compute(input=x)
-    print("The number on the image is: ", output)
+    output: tuple[int, float] = NN.compute(input=x)
+    print("The number on the image is:", output[0], "with probability", output[1])
